@@ -1,0 +1,8 @@
+{
+    "vcenter_server" : "192.168.51.5",
+    "vm_host" : "192.168.51.101",
+    "datastore" : "synHA",
+    "network" : "VM Network",
+    "base_folder" : "Leahy",
+    "snapshot" : "Base"
+}

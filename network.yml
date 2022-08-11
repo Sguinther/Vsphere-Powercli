@@ -1,0 +1,13 @@
+- hosts: winclient
+  gather_facts: no
+  tasks:
+  - ansible.windows.win_domain_membership:
+      dns_domain_name: dranger.zone
+      hostname: DC01
+      domain_admin_user: DRanger-ADM@dranger.zone #vault these two 
+      domain_admin_password: 7hh)_+=K!cv
+      domain_ou_path: "OU=Windows,OU=Servers,DC=ansible,DC=vagrant"
+      state: domain
+    register: domain_state
+  - ansible.windows.win_reboot:
+    when: domain_state.reboot_required
