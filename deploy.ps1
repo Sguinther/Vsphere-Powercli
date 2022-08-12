@@ -1,8 +1,8 @@
 #"First, connect to you Vcenter server"
 
-#$adm = "administrator@vsphere.local"
+#$adm = ""
 
-#$pass = "687#fdk*RR_"
+#$pass = ""
 
 #connect-viserver -server 192.168.51.5 -Protocol https -User $adm -Password $pass  
 
@@ -102,7 +102,7 @@ function inventorygen(){
 }
    
 
-#Ryan's Cloner (OP) STATIC BASED ON CONFIG FILE
+# (OP) STATIC BASED ON CONFIG FILE
 function cloner2($target_vm, $dest_name, $dest_network, $dest_folder){
     $vm_host = Get-VMHost -Name $global:config.vm_host
     $datastore = Get-Datastore -Name $global:config.datastore
@@ -119,7 +119,7 @@ function setup(){
 }
 
 setup
-#cloner2 -target_vm "Win10" -dest_name "wks1" -dest_network "VM Network" -dest_folder "Leahy"
+#cloner2 -target_vm "Win10" -dest_name "wks1" -dest_network "VM Network" -dest_folder ""
 cloner1
 inventorygen
 
