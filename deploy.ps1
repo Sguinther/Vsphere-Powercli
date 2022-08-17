@@ -1,8 +1,8 @@
 #"First, connect to you Vcenter server"
 
-#$adm = ""
+#$adm = "administrator@vsphere.local"
 
-#$pass = ""
+#$pass = "687#fdk*RR_"
 
 #connect-viserver -server 192.168.51.5 -Protocol https -User $adm -Password $pass  
 
@@ -49,9 +49,9 @@ function cloner1 () {
     $vm_host = "192.168.51.101"    # Read-Host -Prompt "(2): What VM host are we putting this on? Please type it here:"
     $datastore = "synHA" #Read-Host -Prompt "(3): Ok, now what datastore are we assigning to this machine? Please type it here:"
     $dest_network = "VM Network" # Read-Host -Prompt "(4): What network do you want this to be assigned to? Please type it here:"
-    $dest_folder = "base" #Read-Host -Prompt "(5): What base folder we putting this on? Please type it here:"
+    $dest_folder = "Deployment Testing" #Read-Host -Prompt "(5): What base folder we putting this on? Please type it here:"
     $snapshot = "base" #Read-Host -Prompt "(6): What is the name of the snapshot that we will be copying? Please type it here:"
-    $target_vm = "Win10" #Read-Host -Prompt "(7): What is the target VM to copy? Please type it here:"
+    $target_vm = "Rocky" #Read-Host -Prompt "(7): What is the target VM to copy? Please type it here:"
     $count = 1 #Read-Host -Prompt "(8): How many times do you want to copy the machine? Please type it here:"
     $dest_name = Read-Host -Prompt "What would you like to name this VM? Please type it here:"
     $namecount = 0
@@ -81,16 +81,16 @@ function cloner1 () {
         
         
     }
-    Read-Host "Your meal has been served. Thank you for choosing the LCDI."
+    #Read-Host "Your meal has been served. Thank you for choosing the LCDI."
 }
     
 function inventorygen(){
     Remove-Item /home/sam/Documents/ipinventory.txt
-    write-host "grabbing Ips, please wait this takes around 30 seconds. "
-    Start-Sleep -Seconds 30 
+    write-host "grabbing Ips, please wait this takes around 60 seconds. "
+    Start-Sleep -Seconds 60
     $hostnames = Get-Content -Path /home/sam/Documents/nameinventory.txt
     ForEach ($name in $hostnames) {
-        write-host $name
+        write-host $name 
         get-vm $name 
         $nadap = Get-NetworkAdapter -VM $name
         Write-Host $nadap.MacAddress
@@ -102,7 +102,7 @@ function inventorygen(){
 }
    
 
-# (OP) STATIC BASED ON CONFIG FILE
+#Ryan's Cloner (OP) STATIC BASED ON CONFIG FILE
 function cloner2($target_vm, $dest_name, $dest_network, $dest_folder){
     $vm_host = Get-VMHost -Name $global:config.vm_host
     $datastore = Get-Datastore -Name $global:config.datastore
@@ -119,7 +119,7 @@ function setup(){
 }
 
 setup
-#cloner2 -target_vm "Win10" -dest_name "wks1" -dest_network "VM Network" -dest_folder ""
+#cloner2 -target_vm "Win10" -dest_name "wks1" -dest_network "VM Network" -dest_folder "Leahy"
 cloner1
 inventorygen
 
